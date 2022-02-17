@@ -77,6 +77,8 @@ public:
 		void TestFEvent();
 	UFUNCTION(exec, BlueprintCallable, Category = "Test Config")
 		void TestGameUserSettingConfig();
+	UFUNCTION(exec, BlueprintCallable, Category = "Sqlite Cheat Manager")
+		void TestGetEngineVersion();
 public:
 	UFUNCTION()
 		void OnClientStreamingLevelLoaded(int32 Linkage);

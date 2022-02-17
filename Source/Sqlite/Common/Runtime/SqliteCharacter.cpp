@@ -19,7 +19,7 @@ ASqliteCharacter::ASqliteCharacter()
 // Called when the game starts or when spawned
 void ASqliteCharacter::BeginPlay()
 {
-	FScopeLog BeginPlayLog(*FString::Printf(TEXT("ASqliteCharacter::BeginPlay,Address:%p"), this));
+	FScopeLog BeginPlayLog(*FString::Printf(TEXT("ASqliteCharacter::BeginPlay,Address:%p,Name:%s"), this,*GetName()));
 	Super::BeginPlay();
 	if (UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn() == this)
 	{

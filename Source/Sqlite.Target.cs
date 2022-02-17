@@ -8,7 +8,8 @@ public class SqliteTarget : TargetRules
 	public SqliteTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-
-		ExtraModuleNames.AddRange( new string[] { "Sqlite" } );
+        // Logs and asserts are still useful to report results
+        bUseLoggingInShipping = true;
+        ExtraModuleNames.AddRange( new string[] { "Sqlite" } );
 	}
 }

@@ -426,3 +426,8 @@ void USqlitCheatManager::TestGameUserSettingConfig()
 	GConfig->GetString(TEXT("/Script/Engine.GameUserSettings"), *KeyValue, ValueStr, GGameUserSettingsIni);
 	ULog::Info(FString::Printf(TEXT("Value:%s"), *ValueStr), ELoggingOptions::LO_Both);
 }
+
+void USqlitCheatManager::TestGetEngineVersion()
+{
+	ULog::Info(FString::Printf(TEXT("Test Get Engine Version:%s"), *UKismetSystemLibrary::GetEngineVersion()), ELoggingOptions::LO_Both);
+}

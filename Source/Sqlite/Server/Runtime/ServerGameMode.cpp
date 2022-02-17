@@ -53,21 +53,22 @@ void AServerGameMode::PreLogin(const FString& Options, const FString& Address, c
 
 	ULog::Info(*FString::Printf(TEXT("UserId:%s,Platform:%s"), *UserId, *Platform));
 
-	TArray<AActor*> OutAllPlayerControllers;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASqlitPlayerController::StaticClass(), OutAllPlayerControllers);
-	ULog::Info(FString::Printf(TEXT("ASqliteCharacter Num:%d"), OutAllPlayerControllers.Num()));
-	for (auto& ItemPC : OutAllPlayerControllers)
-	{
-		ULog::Info(FString::Printf(TEXT("PlayerController Name:%s,Address:%p"), *ItemPC->GetFullName(),ItemPC));
-		//ASqlitPlayerController* PlayerController = Cast<ASqlitPlayerController>(ItemPC);
-	}
-
 	//ErrorMessage = TEXT("==>Notify Test Error Message!");
 }
 
 void AServerGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	FScopeLog PostLoginLog(*FString::Printf(TEXT("AServerGameMode::PostLogin,Address:%p"), this));
+	Super::PostLogin(NewPlayer);
+	TArray<AActor*> OutAllPlayerControllers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASqlitPlayerController::StaticClass(), OutAllPlayerControllers);
+	ULog::Info(FString::Printf(TEXT("ASqlitPlayerController Num:%d"), OutAllPlayerControllers.Num()));
+	for (auto& ItemPC : OutAllPlayerControllers)
+	{
+		ULog::Info(FString::Printf(TEXT("PlayerController Name:%s,Address:%p"), *ItemPC->GetFullName(), ItemPC));
+		//ASqlitPlayerController* PlayerController = Cast<ASqlitPlayerController>(ItemPC);
+	}
+
 	ULog::Info(TEXT("After this function is called, RPC is safe to use"));
 	UGameInstance* GameInstance = GetGameInstance();
 	if (!GameInstance)
@@ -76,45 +77,48 @@ void AServerGameMode::PostLogin(APlayerController* NewPlayer)
 		//TODO: The client should be notified to reconnect [11/10/2021 CarlZhou]
 		return;
 	}
-
-	if (GameInstance->IsDedicatedServerInstance())
-	{
-		ASqlitPlayerController* PlayerController = Cast<ASqlitPlayerController>(NewPlayer);
-		if (PlayerController)
-		{
-			UWorld* World = GetWorld();
-			if (World)
-			{
-				FActorSpawnParameters ActorSpawnParameters = FActorSpawnParameters();
-				ActorSpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-				ActorSpawnParameters.bNoFail = true;
-				ASqliteCharacter* SqliteCharacter = World->SpawnActor<ASqliteCharacter>(ActorSpawnParameters);
-				if (!SqliteCharacter)
-				{
-					ULog::Error(TEXT("SpawnActor Failed,Character Created Failed!!"));
-				}
-				else
-				{
-					PlayerController->Possess(SqliteCharacter);
-					SqliteCharacter->UserId = PlayerController->UserId;
-					SqliteCharacter->Platform = PlayerController->Platform;
-					/*ULog::Info(TEXT("Start PlayerController Close Connection!!"));
-					if (SqliteCharacter->GetNetConnection())
-					{
-						SqliteCharacter->GetNetConnection()->Close();
-					}
-					else
-					{
-						ULog::Error(TEXT("SqliteCharacter->GetNetConnection() is nullptr,SqliteCharacter Close Connection failed!!"));
-					}*/
-				}
-			}
-			else
-			{
-				ULog::Error(TEXT("World Is Invalid,Character Created Failed!!"));
-			}
-		}
-	}
+	//RestartPlayer(NewPlayer);
+	//if (GameInstance->IsDedicatedServerInstance())
+	//{
+	//	ASqlitPlayerController* PlayerController = Cast<ASqlitPlayerController>(NewPlayer);
+	//	if (PlayerController)
+	//	{
+	//		UWorld* World = GetWorld();
+	//		if (World)
+	//		{
+	//			//FActorSpawnParameters ActorSpawnParameters = FActorSpawnParameters();
+	//			//ActorSpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	//			//ActorSpawnParameters.bNoFail = true;
+	//			////FVector ActorLocation = FVector(0.f, (PlayerNum-1) * 20000.f, 0.f);
+	//			//FVector ActorLocation = FVector::ZeroVector;
+	//			//ASqliteCharacter* SqliteCharacter = World->SpawnActor<ASqliteCharacter>(ActorLocation, FRotator::ZeroRotator, ActorSpawnParameters);
+	//			//ULog::Error(*FString::Printf(TEXT("SpawnActor location:%s"), *ActorLocation.ToString()));
+	//			//if (!SqliteCharacter)
+	//			//{
+	//			//	ULog::Error(TEXT("SpawnActor Failed,Character Created Failed!!"));
+	//			//}
+	//			//else
+	//			//{
+	//			//	PlayerController->Possess(SqliteCharacter);
+	//			//	SqliteCharacter->UserId = PlayerController->UserId;
+	//			//	SqliteCharacter->Platform = PlayerController->Platform;
+	//			//	/*ULog::Info(TEXT("Start PlayerController Close Connection!!"));
+	//			//	if (SqliteCharacter->GetNetConnection())
+	//			//	{
+	//			//		SqliteCharacter->GetNetConnection()->Close();
+	//			//	}
+	//			//	else
+	//			//	{
+	//			//		ULog::Error(TEXT("SqliteCharacter->GetNetConnection() is nullptr,SqliteCharacter Close Connection failed!!"));
+	//			//	}*/
+	//			//}
+	//		}
+	//		else
+	//		{
+	//			ULog::Error(TEXT("World Is Invalid,Character Created Failed!!"));
+	//		}
+	//	}
+	//}
 }
 
 void AServerGameMode::BeginDestroy()
@@ -131,6 +135,7 @@ void AServerGameMode::BeginPlay()
 
 FString AServerGameMode::InitNewPlayer(APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId, const FString& Options, const FString& Portal /*= TEXT("")*/)
 {
+	PlayerNum += 1;
 	FScopeLog InitNewPlayerLog(*FString::Printf(TEXT("AServerGameMode::InitNewPlayer,Address:%p"), this));
 	FString Rs = Super::InitNewPlayer(NewPlayerController, UniqueId, Options, Portal);
 	FString UserId = UGameplayStatics::ParseOption(Options, TEXT("UserId")).TrimStart();
@@ -144,4 +149,10 @@ FString AServerGameMode::InitNewPlayer(APlayerController* NewPlayerController, c
 	}
 
 	return Rs;
+}
+
+UClass* AServerGameMode::GetDefaultPawnClassForController_Implementation(AController* InController)
+{
+	FScopeLog DefaultPawnClassForController(*FString::Printf(TEXT("AServerGameMode::DefaultPawnClassForController,Address:%p"), this));
+	return ASqliteCharacter::StaticClass();
 }

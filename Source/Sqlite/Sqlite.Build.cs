@@ -27,7 +27,7 @@ public class Sqlite : ModuleRules
             "Json",
             "Networking",
             "Http",
-            "UMG"
+            "UMG",
             //"OnlineSubsystem",
             //"OnlineSubsystemUtils",
             //"SQLiteCore",

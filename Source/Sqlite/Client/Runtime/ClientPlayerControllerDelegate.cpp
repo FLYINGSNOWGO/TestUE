@@ -61,14 +61,16 @@ void FClientPlayerControllerDelegator::ConnectDSImplementation()
 	FString Port = TEXT("7777");
 	FString UserId = TEXT("1234567890");
 	FString Platform = UGameplayStatics::GetPlatformName();
+	FString Name = FString::Printf(TEXT("PC_%s"),*UserId);
 
 	TArray<FStringFormatArg> FormatArray;
 	FormatArray.Add(FStringFormatArg(IP));
 	FormatArray.Add(FStringFormatArg(Port));
 	FormatArray.Add(FStringFormatArg(UserId));
 	FormatArray.Add(FStringFormatArg(Platform));
+	FormatArray.Add(FStringFormatArg(Name));
 
-	FString URL = FString::Format(TEXT("{0}:{1}?UserId={2}?Platform={3}"), FormatArray);
+	FString URL = FString::Format(TEXT("{0}:{1}?UserId={2}?Platform={3}?Name={4}"), FormatArray);
 
 	ULog::Info(*FString::Printf(TEXT("==>URL:%s"), *URL), ELoggingOptions::LO_Both);
 

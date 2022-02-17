@@ -21,7 +21,7 @@ ASqlitPlayerController::~ASqlitPlayerController()
 
 void ASqlitPlayerController::BeginPlay()
 {
-	FScopeLog BeginPlayLog(*FString::Printf(TEXT("ASqlitPlayerController::BeginPlay,Address:%p"), this));
+	FScopeLog BeginPlayLog(*FString::Printf(TEXT("ASqlitPlayerController::BeginPlay,Address:%p,Name:%s"), this, *GetName()));
 	//ConsoleCommand(TEXT("stat StartFile"));
 	Super::BeginPlay();
 	if (GetRemoteRole() == ENetRole::ROLE_Authority)

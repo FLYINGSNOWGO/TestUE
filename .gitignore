@@ -1,0 +1,24 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Sqlite
+/1/WindowsNoEditor
+/Binaries
+/Android_ASTC
+/Intermediate
+/Plugins/CrashDump/Binaries/Win64
+/Plugins/CrashDump/Intermediate/Build/Win64/UE4Editor/Development/CrashDump
+/Plugins/Debug/Binaries/Win64
+/Plugins/Debug/Intermediate/Build/Win64/UE4Editor
+/Plugins/JsonExtension/Intermediate/Build/Win64/UE4Editor
+/Plugins/JsonExtension/Binaries/Win64
+/Plugins/SQLiteManager/Binaries/Win64
+/Plugins/SQLiteManager/Intermediate/Build/Win64/UE4Editor
+/Plugins/Test/Intermediate/Build/Win64/UE4Editor
+/Saved
+/DerivedDataCache
+/Plugins/Test/Binaries/Win64
+/WindowsNoEditor
+/Sqlite.sln
+/CopyLastBinaries.bat - 快捷方式.lnk
