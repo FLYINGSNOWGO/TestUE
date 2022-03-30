@@ -11,6 +11,7 @@
 #include "Common/Runtime/SqliteGameInstance.h"
 #include "Log.h"
 #include "Common/Runtime/SqliteCharacter.h"
+#include "Common/Runtime/SqlitPlayerController.h"
 #include "Engine/NetConnection.h"
 
 #include "JsonReaderExtension.h"
@@ -26,6 +27,9 @@
 #include "Blueprint/UserWidget.h"
 
 #include "TestEventThread.h"
+#include "Common/DownLoad/DownloadManager.h"
+#include "Engine/EngineBaseTypes.h"
+#include "Engine/Level.h"
 
 void USqlitCheatManager::TestMountTestMapPak()
 {
@@ -430,4 +434,116 @@ void USqlitCheatManager::TestGameUserSettingConfig()
 void USqlitCheatManager::TestGetEngineVersion()
 {
 	ULog::Info(FString::Printf(TEXT("Test Get Engine Version:%s"), *UKismetSystemLibrary::GetEngineVersion()), ELoggingOptions::LO_Both);
+}
+
+void USqlitCheatManager::TestDownloadManager()
+{
+	AsyncTask(ENamedThreads::GameThread,[](){
+		FDownloadManager::FDownloadFileEntry MapEntry;
+		MapEntry.FileName = TEXT("UMap_Cloudia.pak");
+		// TODO:Set the total size of the download file to support progress [3/7/2022 CarlZhou]
+		//MapEntry.FileSize = 
+		MapEntry.FileFullPath = FPaths::ProjectSavedDir() / TEXT("UMap_Cloudia.pak");
+		MapEntry.RelativeUrl = TEXT("http://10.155.254.134:20172/smartmap/rod/storage/file/mapfile_2022_8c203b90fdfc45f79bfb9482d5b7177e.pak");
+		//MapEntry.RemoteMapMd5 = RemoteMapMd5;
+		MapEntry.DownloadFileCompleteDelegate.BindLambda([](const FString& FileFullPath) {
+			ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestDownloadManager->FileFullPath:%s"), *FileFullPath), ELoggingOptions::LO_Both);
+			});
+		MapEntry.DownloadFileErrorDelegate.BindLambda([=](const FString& FileName, const FDownloadManager::EDownloadErrorType ErrorType) {
+			FString Info = FString::Printf(TEXT("Client Download %s failed,Reasons:%s,please contact your system administrator"),
+				*FileName,
+				FDownloadManager::DownloadErrorTypeToString(ErrorType));
+			ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestDownloadManager->%s"), *Info), ELoggingOptions::LO_Both);
+
+			});
+
+		MapEntry.DownloadFileWillRetryDelegate.BindLambda([](const FString& RetryFileName) {
+			ULog::Warning(FString::Printf(TEXT("USqlitCheatManager::TestDownloadManager->RetryFileName:%s"), *RetryFileName), ELoggingOptions::LO_Both);
+			// TODO:Retry the download interface prompt [3/4/2022 CarlZhou]
+			});
+
+		MapEntry.DownloadProgressDelegate.BindLambda([](const FString& FileName, const int32 BytesReceived, const int32 FileSize) {
+			// TODO:Progress interface display [3/4/2022 CarlZhou]
+			ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestDownloadManager->FileName:%s;BytesReceived:%d "), *FileName, BytesReceived), ELoggingOptions::LO_Both);
+			});
+
+		FDownloadManager::Get()->DownLoad(MapEntry);
+	});
+}
+
+void USqlitCheatManager::TestGetCurLevelName()
+{
+	UWorld* PersistentWorld = GetWorld();
+	if (!PersistentWorld)
+	{
+		UE_LOG(LogTemp, Fatal, TEXT("DynamicAddStreamingLevel Faild,PersistentWorld is invaild!!!"));
+		return;
+	}
+	FString LevelName = PersistentWorld->GetCurrentLevel()->GetPathName();
+	if (LevelName.Contains(TEXT("Map_Client_Main")))
+	{
+		ULog::Info(TEXT("Contains Map_Client_Main"));
+	}
+	FString UrlMap = PersistentWorld->GetCurrentLevel()->URL.Map;
+	FString ShortName = FPackageName::GetShortName(UrlMap);
+	ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestGetCurLevelName->LevelName:%s;UrlMap:%s;ShortName:%s "), *LevelName, *UrlMap,*ShortName), ELoggingOptions::LO_Both);
+}
+
+void USqlitCheatManager::TestCheck()
+{
+	checkf(false, TEXT("MarkPendingKill Error: %s is rooted"), *GetPathName());
+}
+
+void USqlitCheatManager::TestRPC()
+{
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PlayerController)
+	{
+		ULog::Info(FString::Printf(TEXT("Start Call DS RPC!!")), ELoggingOptions::LO_Both);
+		if (ASqlitPlayerController* SPC = Cast<ASqlitPlayerController>(PlayerController))
+		{
+			SPC->ServerSetStartTransform(FTransform());
+		}
+	}
+	else
+	{
+		ULog::Error(FString::Printf(TEXT("PlayerController is invalid! Close Client Connection failed!!")), ELoggingOptions::LO_Both);
+	}
+}
+
+void USqlitCheatManager::TestLog()
+{
+	ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestLog!!")), ELoggingOptions::LO_Both);
+	FString Str;
+	FString Str1;
+
+	UE_LOG(LogTemp,Log,TEXT("Str:%s;Str1:%s"), *Str, *Str1);
+}
+
+void USqlitCheatManager::TestT2U()
+{
+	FString Str;
+	FString Str1;
+	std::string r = TCHAR_TO_UTF8(*Str);
+	std::string r1 = TCHAR_TO_UTF8(*Str1);
+}
+
+float CVar_ShooterRepGraph_DestructionInfoMaxDist = 30000.f;
+static FAutoConsoleVariableRef CVarShooterRepGraphDestructMaxDist(TEXT("ShooterRepGraph.DestructInfo.MaxDist"), CVar_ShooterRepGraph_DestructionInfoMaxDist, TEXT("Max distance (not squared) to rep destruct infos at"), ECVF_Default);
+
+static TAutoConsoleVariable<int32> CVarDrawSpritesAsTwoSided(TEXT("r.Paper2D.Test"), 1, TEXT("test tttttttt."));
+
+void USqlitCheatManager::TestConsoleVariable()
+{
+	static IConsoleVariable* CVarRPaper2DTest = IConsoleManager::Get().FindConsoleVariable(TEXT("r.Paper2D.Test"));
+	ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestConsoleVariable:CVar_ShooterRepGraph_DestructionInfoMaxDist:%f;CVarRPaper2DTest:%d"), CVar_ShooterRepGraph_DestructionInfoMaxDist, CVarRPaper2DTest->GetInt()), ELoggingOptions::LO_Both);
+}
+
+void USqlitCheatManager::TestNumber()
+{
+	int32 P1 = 30;
+	int32 P2 = 100;
+	float P3 = P1 / P2;
+	float P4 = (P1 * 1.f) / P2;
+	ULog::Info(FString::Printf(TEXT("USqlitCheatManager::TestNumber->P3:%f;P4:%f"), P3, P4), ELoggingOptions::LO_Both);
 }

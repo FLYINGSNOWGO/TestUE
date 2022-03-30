@@ -14,4 +14,6 @@ class SQLITE_API FServerPlayerControllerDelegator : public FPlayerControllerDele
 public:
 	FServerPlayerControllerDelegator();
 	virtual ~FServerPlayerControllerDelegator();
+
+	virtual void ServerSetStartTransform_Implementation(const FTransform& SpawnPointTransform) override;
 };

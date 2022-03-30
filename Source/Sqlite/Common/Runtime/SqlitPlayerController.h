@@ -38,6 +38,8 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	// End Actor Interface [11/8/2021 CarlZhou]
+
+	virtual void ClientSetViewTarget_Implementation(AActor* A, FViewTargetTransitionParams TransitionParams) override;
 public:
 	// APlayerController start Interface [10/20/2021 admin]
 	virtual void CleanupPlayerState() override;
@@ -50,6 +52,10 @@ public:
 	/** Returns properties that are replicated for the lifetime of the actor channel */
 	virtual void GetLifetimeReplicatedProps(TArray< class FLifetimeProperty > & OutLifetimeProps) const override;
 	//~ End UObject Interface
+
+public:
+	UFUNCTION(Server, reliable)
+		void ServerSetStartTransform(const FTransform& SpawnPointTransform);
 
 public:
 	UFUNCTION(BlueprintCallable,Category="Login")

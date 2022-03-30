@@ -79,6 +79,22 @@ public:
 		void TestGameUserSettingConfig();
 	UFUNCTION(exec, BlueprintCallable, Category = "Sqlite Cheat Manager")
 		void TestGetEngineVersion();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Download Manager")
+		void TestDownloadManager();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Download Manager")
+		void TestGetCurLevelName();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Download Manager")
+		void TestCheck();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test RPC")
+		void TestRPC();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Log")
+		void TestLog();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Log")
+		void TestT2U();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test ConsoleVariable")
+		void TestConsoleVariable();
+	UFUNCTION(exec, BlueprintCallable, Category = "Test Number")
+		void TestNumber();
 public:
 	UFUNCTION()
 		void OnClientStreamingLevelLoaded(int32 Linkage);

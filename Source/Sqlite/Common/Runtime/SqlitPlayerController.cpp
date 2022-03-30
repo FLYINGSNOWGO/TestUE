@@ -73,6 +73,24 @@ void ASqlitPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
+void ASqlitPlayerController::ClientSetViewTarget_Implementation(AActor* A, FViewTargetTransitionParams TransitionParams)
+{
+	if (PlayerCameraManager && !PlayerCameraManager->bClientSimulatingViewTarget)
+	{
+		if (A == NULL)
+		{
+			ServerVerifyViewTarget();
+			return;
+		}
+		// don't force view to self while unpossessed (since server may be doing it having destroyed the pawn)
+		if (IsInState(NAME_Inactive) && A == this)
+		{
+			return;
+		}
+		SetViewTarget(A, TransitionParams);
+	}
+}
+
 void ASqlitPlayerController::Destroyed()
 {
 	FScopeLog DestroyedLog(*FString::Printf(TEXT("ASqlitPlayerController::Destroyed,Address:%p"), this));
@@ -96,6 +114,11 @@ void ASqlitPlayerController::GetLifetimeReplicatedProps(TArray< class FLifetimeP
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ASqlitPlayerController, UserId);
 	DOREPLIFETIME(ASqlitPlayerController, Platform);
+}
+
+void ASqlitPlayerController::ServerSetStartTransform_Implementation(const FTransform& SpawnPointTransform)
+{
+	PlayerControllerDelegator.ServerSetStartTransform_Implementation(SpawnPointTransform);
 }
 
 void ASqlitPlayerController::ConnectDS()

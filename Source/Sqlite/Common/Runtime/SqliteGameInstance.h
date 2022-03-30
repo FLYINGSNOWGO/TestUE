@@ -29,6 +29,7 @@ private:
 protected:
 	void OnNetworkError(UWorld *World, UNetDriver *NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 	void HandleDisconnect(UWorld* InWorld, UNetDriver* NetDriver);
+	virtual void LoadComplete(const float LoadTime, const FString& MapName) override;
 public:
 	USqliteGameInstance(const FObjectInitializer& ObjectInitializer);
 	~USqliteGameInstance();

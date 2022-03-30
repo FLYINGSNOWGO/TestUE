@@ -42,6 +42,11 @@ void USqliteGameInstance::HandleDisconnect(UWorld* InWorld, UNetDriver* NetDrive
 	FScopeLog GameInstanceLog(*FString::Printf(TEXT("USqliteGameInstance::HandleDisconnect,Address:%p"), this));
 }
 
+void USqliteGameInstance::LoadComplete(const float LoadTime, const FString& MapName)
+{
+	FScopeLog GameInstanceLog(*FString::Printf(TEXT("USqliteGameInstance::LoadComplete->LoadTime:%f,MapName:%s,Address:%p"), LoadTime, *MapName,this));
+}
+
 USqliteGameInstance::USqliteGameInstance(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer)
 {
 	FScopeLog SqliteGameInstanceLog(*FString::Printf(TEXT("USqliteGameInstance::USqliteGameInstance,Address:%p"), this));

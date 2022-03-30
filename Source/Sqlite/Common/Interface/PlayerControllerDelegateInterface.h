@@ -34,6 +34,8 @@ public:
 	// Server Function
 	UClass* GetDefaultPawn_Implementation() { return nullptr; }
 
+	virtual void ServerSetStartTransform_Implementation(const FTransform& SpawnPointTransform) {}
+
 	// Client Function
 	virtual void tick(float DeltaTime) {};
 	virtual void CheckClientNetwork(float DeltaTime) {}
