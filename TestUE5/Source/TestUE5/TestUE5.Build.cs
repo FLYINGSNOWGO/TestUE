@@ -16,7 +16,8 @@ public class TestUE5 : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "AIModule" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
-
+		
+		PublicDefinitions.Add("V8_HAS_ATTRIBUTE_WARN_UNUSED_RESULT=0");
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		

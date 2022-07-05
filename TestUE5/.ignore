@@ -1,12 +1,12 @@
-.idea
 .vscode
 Content
-DerivedDataCache
 Intermediate
 Saved
 Script
+Plugins/JsonLibrary/Intermediate
 Plugins/Puerts/Content
 Plugins/Puerts/Intermediate
 Plugins/Puerts/PuertsEditor
 Plugins/Puerts/ThirdParty
 Plugins/Puerts/Typing
+Plugins/WebUI/Intermediate

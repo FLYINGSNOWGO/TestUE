@@ -49,6 +49,14 @@
 		{
 			"Name": "CLionSourceCodeAccess",
 			"Enabled": false
+		},
+		{
+			"Name": "JsonLibrary",
+			"Enabled": true
+		},
+		{
+			"Name": "WebUI",
+			"Enabled": true
 		}
 	]
 }
