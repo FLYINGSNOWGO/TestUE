@@ -1,6 +1,12 @@
+.idea
 .vscode
 Content
 DerivedDataCache
 Intermediate
 Saved
 Script
+Plugins/Puerts/Content
+Plugins/Puerts/Intermediate
+Plugins/Puerts/PuertsEditor
+Plugins/Puerts/ThirdParty
+Plugins/Puerts/Typing

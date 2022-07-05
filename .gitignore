@@ -10,3 +10,11 @@ Plugins/*/Binaries/*
 Plugins/*/Intermediate
 Binaries/*
 Plugins/Puerts/Binaries/ThirdParty/v8
+
+TestUE5/Plugins/Puerts/ThirdParty/v8/
+
+TestUE5/Plugins/Puerts/Binaries/
+
+TestUE5/TestUE5.code-workspace
+
+TestUE5/Makefile
