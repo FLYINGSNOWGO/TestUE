@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{5985FFA4-A5CD-4DFE-ACF0-2E54146230D2}",
+	"EngineAssociation": "{2511766C-4138-07F7-437F-2D81BD787E0C}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -25,10 +25,6 @@
 		},
 		{
 			"Name": "VisualStudioCodeSourceCodeAccess",
-			"Enabled": false
-		},
-		{
-			"Name": "VisualStudioSourceCodeAccess",
 			"Enabled": false
 		},
 		{

@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "PlayerControllerInterface.generated.h"
+#include "CharacterDelegator.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UPlayerControllerInterface : public UObject
+class UCharacterDelegator : public UObject
 {
 	GENERATED_BODY()
 public:
-	virtual void TestPlayerController(){}
+	virtual void TestCharacterDelegator(){}
 };

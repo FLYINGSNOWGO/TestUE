@@ -2,7 +2,7 @@
 
 
 #include "ServerGameMode.h"
-#include "TestLogChannels.h"
+#include "Common/NCLogChannels.h"
 
 
 FString AServerGameMode::InitNewPlayer(APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId,

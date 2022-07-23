@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "PlayerControllerInterface.h"
 #include "NCPlayerController.generated.h"
+
+class UPlayerControllerDelegator;
 
 /**
  * 
@@ -14,9 +15,9 @@ UCLASS()
 class TESTUE5_API ANCPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-public:
-	UPROPERTY()
-	TObjectPtr<UPlayerControllerInterface> PlayerControllerInterface = nullptr;
+private:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UPlayerControllerDelegator> PlayerControllerDelegator = nullptr;
 protected:
 	virtual void BeginPlay() override;
 public:

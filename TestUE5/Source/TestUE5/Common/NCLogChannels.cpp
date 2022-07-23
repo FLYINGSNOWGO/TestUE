@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TestLogChannels.h"
+#include "NCLogChannels.h"
 #include "GameFramework/Actor.h"
 
 DEFINE_LOG_CATEGORY(LogNC);
