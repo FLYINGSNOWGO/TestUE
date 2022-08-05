@@ -7,12 +7,12 @@
 
 UServerCharacterDelegator::UServerCharacterDelegator(const FObjectInitializer& ObjectInitializer /*= FObjectInitializer::Get()*/):Super(ObjectInitializer)
 {
-	UE_LOG(LogServerNC, Log, TEXT("Enter UServerCharacterDelegator::UServerCharacterDelegator[%s]"), *GetClientServerContextString(this));
-	UE_LOG(LogServerNC, Log, TEXT("Exit UServerCharacterDelegator::UServerCharacterDelegator[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogServerNC, Log, TEXT("Enter UServerCharacterDelegator::UServerCharacterDelegator[%s], this:%p"), *GetClientServerContextString(this),this);
+	UE_LOG(LogServerNC, Log, TEXT("Exit UServerCharacterDelegator::UServerCharacterDelegator[%s], this:%p"), *GetClientServerContextString(this),this);
 }
 
 void UServerCharacterDelegator::TestCharacterDelegator()
 {
-	UE_LOG(LogServerNC,Log,TEXT("Enter UServerCharacterDelegator::TestCharacterDelegator[%s]"),*GetClientServerContextString(this));
-	UE_LOG(LogServerNC,Log,TEXT("Exit UServerCharacterDelegator::TestCharacterDelegator[%s]"),*GetClientServerContextString(this));
+	UE_LOG(LogServerNC,Log,TEXT("Enter UServerCharacterDelegator::TestCharacterDelegator[%s], this:%p"),*GetClientServerContextString(this), this);
+	UE_LOG(LogServerNC,Log,TEXT("Exit UServerCharacterDelegator::TestCharacterDelegator[%s], this:%p"),*GetClientServerContextString(this),this);
 }

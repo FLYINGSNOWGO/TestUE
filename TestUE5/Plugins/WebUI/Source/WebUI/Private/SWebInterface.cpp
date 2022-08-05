@@ -343,6 +343,14 @@ bool SWebInterface::HandleCloseWindow( const TWeakPtr<IWebInterfaceBrowserWindow
 #endif
 }
 
+void SWebInterface::ApplyZoom() const
+{
+	if (BrowserWindow.IsValid())
+	{
+		BrowserWindow->ApplyZoom();
+	}
+}
+
 bool SWebInterface::HasMouseTransparency() const
 {
 	return bMouseTransparency && !bVirtualPointerTransparency;

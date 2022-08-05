@@ -18,3 +18,7 @@ TestUE5/Plugins/Puerts/Binaries/
 TestUE5/TestUE5.code-workspace
 
 TestUE5/Makefile
+/TestUE5/.vs/TestUE5/v16
+/TestUE5/Binaries/Win64
+/TestUE5/Plugins/JsonLibrary/Binaries
+/TestUE5/Plugins/WebUI/Binaries

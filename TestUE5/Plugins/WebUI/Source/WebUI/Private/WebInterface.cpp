@@ -167,6 +167,12 @@ FString UWebInterface::GetURL() const
 	return FString();
 }
 
+void UWebInterface::ApplyZoom() const
+{
+	if ( WebInterfaceWidget.IsValid() )
+		WebInterfaceWidget->ApplyZoom();
+}
+
 void UWebInterface::Execute( const FString& Script )
 {
 #if !UE_SERVER

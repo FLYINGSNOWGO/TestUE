@@ -116,7 +116,7 @@ public:
 public:
 
 	// IWebBrowserWindow Interface
-
+	virtual  void ApplyZoom() override;
 	virtual void LoadURL(FString NewURL) override;
 	virtual void LoadString(FString Contents, FString DummyURL) override;
 	virtual void SetViewportSize(FIntPoint WindowSize, FIntPoint WindowPos) override;

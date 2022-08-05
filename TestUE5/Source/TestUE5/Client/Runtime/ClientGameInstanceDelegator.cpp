@@ -7,12 +7,12 @@
 
 UClientGameInstanceDelegator::UClientGameInstanceDelegator(const FObjectInitializer& ObjectInitializer /*= FObjectInitializer::Get()*/) : Super(ObjectInitializer)
 {
-	UE_LOG(LogServerNC, Log, TEXT("Enter UClientGameInstanceDelegator::UClientGameInstanceDelegator[%s]"), *GetClientServerContextString(this));
-	UE_LOG(LogServerNC, Log, TEXT("Exit UClientGameInstanceDelegator::UClientGameInstanceDelegator[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogServerNC, Log, TEXT("Enter UClientGameInstanceDelegator::UClientGameInstanceDelegator[%s], this:%p"), *GetClientServerContextString(this),this);
+	UE_LOG(LogServerNC, Log, TEXT("Exit UClientGameInstanceDelegator::UClientGameInstanceDelegator[%s], this:%p"), *GetClientServerContextString(this),this);
 }
 
 void UClientGameInstanceDelegator::TestGameInstanceDelegator()
 {
-	UE_LOG(LogServerNC,Log,TEXT("Enter UClientGameInstanceDelegator::TestGameInstanceDelegator[%s]"),*GetClientServerContextString(this));
-	UE_LOG(LogServerNC,Log,TEXT("Exit UClientGameInstanceDelegator::TestGameInstanceDelegator[%s]"),*GetClientServerContextString(this));
+	UE_LOG(LogServerNC,Log,TEXT("Enter UClientGameInstanceDelegator::TestGameInstanceDelegator[%s], this:%p"),*GetClientServerContextString(this),this);
+	UE_LOG(LogServerNC,Log,TEXT("Exit UClientGameInstanceDelegator::TestGameInstanceDelegator[%s], this:%p"),*GetClientServerContextString(this),this);
 }

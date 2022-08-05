@@ -8,7 +8,7 @@
 // Sets default values
 ANCCharacter::ANCCharacter()
 {
-	UE_LOG(LogNC, Log, TEXT("Enter ANCPlayerController::ANCCharacter[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogNC, Log, TEXT("Enter ANCPlayerController::ANCCharacter[%s],this:%p"), *GetClientServerContextString(this),this);
 	if (!HasAnyFlags(RF_ClassDefaultObject) && GetGameInstance() && GetGameInstance()->IsDedicatedServerInstance())
 	{
 		UE_LOG(LogNC, Log, TEXT("ANCCharacter::ANCCharacter->IsDedicatedServerInstance: true"));
@@ -24,13 +24,13 @@ ANCCharacter::ANCCharacter()
 	}
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	UE_LOG(LogNC, Log, TEXT("Exit ANCPlayerController::ANCCharacter[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogNC, Log, TEXT("Exit ANCPlayerController::ANCCharacter[%s],this:%p"), *GetClientServerContextString(this), this);
 }
 
 // Called when the game starts or when spawned
 void ANCCharacter::BeginPlay()
 {
-	UE_LOG(LogNC, Log, TEXT("Enter ANCCharacter::BeginPlay[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogNC, Log, TEXT("Enter ANCCharacter::BeginPlay[%s], this:%p"), *GetClientServerContextString(this),this);
 	if (GetGameInstance() && GetGameInstance()->IsDedicatedServerInstance())
 	{
 		UE_LOG(LogNC, Log, TEXT("ANCCharacter::BeginPlay->IsDedicatedServerInstance: true"));
@@ -40,7 +40,7 @@ void ANCCharacter::BeginPlay()
 		UE_LOG(LogNC, Log, TEXT("ANCCharacter::BeginPlay->IsDedicatedServerInstance: false"));
 	}
 	Super::BeginPlay();
-	UE_LOG(LogNC, Log, TEXT("Exit ANCCharacter::BeginPlay[%s]"), *GetClientServerContextString(this));
+	UE_LOG(LogNC, Log, TEXT("Exit ANCCharacter::BeginPlay[%s], this:%p"), *GetClientServerContextString(this),this);
 }
 
 // Called every frame

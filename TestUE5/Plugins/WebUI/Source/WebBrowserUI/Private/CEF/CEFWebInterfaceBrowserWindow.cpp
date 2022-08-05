@@ -537,6 +537,16 @@ FCEFWebInterfaceBrowserWindow::~FCEFWebInterfaceBrowserWindow()
 	}
 }
 
+void FCEFWebInterfaceBrowserWindow::ApplyZoom()
+{
+	const float ApplicationScale = FSlateApplication::Get().GetApplicationScale();
+	const float ZoomLevel = 1.0 * FMath::LogX(ApplicationScale,1.2);
+	if (const CefRefPtr<CefBrowserHost> BrowserHost = InternalCefBrowser->GetHost())
+	{
+		BrowserHost->SetZoomLevel(-ZoomLevel);
+	}
+}
+
 void FCEFWebInterfaceBrowserWindow::LoadURL(FString NewURL)
 {
 	RequestNavigationInternal(NewURL, FString());

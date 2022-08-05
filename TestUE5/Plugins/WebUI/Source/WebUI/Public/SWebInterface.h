@@ -148,7 +148,7 @@ protected:
 	FSimpleDelegate OnDismissAllDialogs;
 
 public:
-
+	void ApplyZoom() const;
 	bool HasMouseTransparency() const;
 	bool HasVirtualPointerTransparency() const;
 

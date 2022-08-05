@@ -46,6 +46,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Web UI")
 	FString GetURL() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Web UI")
+	void ApplyZoom() const;
+
 	// Execute JavaScript in the browser context.
 	UFUNCTION(BlueprintCallable, Category = "Web UI")
 	void Execute( const FString& Script );

@@ -46,7 +46,7 @@ struct FWebNavigationRequest
 class IWebInterfaceBrowserWindow
 {
 public:
-
+	virtual void ApplyZoom() = 0;
 	/**
 	 * Load the specified URL
 	 *
