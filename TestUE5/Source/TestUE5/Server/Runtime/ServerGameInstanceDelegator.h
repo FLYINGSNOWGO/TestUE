@@ -17,5 +17,10 @@ class TESTUE5_API UServerGameInstanceDelegator : public UGameInstanceDelegator
 public:
 	UServerGameInstanceDelegator(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 	virtual void TestGameInstanceDelegator() override;
+
+	virtual void Initialize(UGameInstance* InGameInstance) override;
+	virtual void OnStart() override;
+	virtual void Shutdown() override;
+	virtual void LoadComplete(const float LoadTime, const FString& MapName);
 	
 };

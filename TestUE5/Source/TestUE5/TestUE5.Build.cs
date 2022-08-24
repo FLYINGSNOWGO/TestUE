@@ -13,7 +13,17 @@ public class TestUE5 : ModuleRules
                 );
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "AIModule", "UMG" });
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"AIModule",
+			"UMG",
+			"Puerts",
+			"JsEnv",
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 		

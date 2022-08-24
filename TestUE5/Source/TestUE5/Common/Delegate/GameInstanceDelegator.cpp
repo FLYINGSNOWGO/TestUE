@@ -6,3 +6,7 @@
 
 
 
+void UGameInstanceDelegator::Initialize(UGameInstance* InGameInstance)
+{
+	GameInstance = InGameInstance;
+}
