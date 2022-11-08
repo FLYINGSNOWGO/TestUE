@@ -17,6 +17,10 @@ class TESTUE5_API UClientGameInstanceDelegator : public UGameInstanceDelegator
 private:
 	void OnNetworkError(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 	void HandleDisconnect(UWorld* InWorld, UNetDriver* NetDriver);
+#if PLATFORM_ANDROID
+	void DoPermissionsGranted(const TArray<FString>& Permissions, const TArray<bool>& GrantResults);
+#endif
+	
 public:
 	UClientGameInstanceDelegator(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 	virtual void TestGameInstanceDelegator() override;

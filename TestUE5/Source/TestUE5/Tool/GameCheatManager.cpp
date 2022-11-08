@@ -118,3 +118,9 @@ void UGameCheatManager::TestCreateBin()
 		UE_LOG(LogGameCheatManager, Fatal, TEXT("Failed to create PoseData.bin file"));
 	}
 }
+
+void UGameCheatManager::TestCodePoint()
+{
+	// FString Str = TEXT("你");
+	// UE_LOG(LogGameCheatManager, Display, TEXT("[TestCodePoint] CodePointAt 你:%o"),(int)Str[0]);
+}

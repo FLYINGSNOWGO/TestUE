@@ -27,5 +27,7 @@ public:
 
 	UFUNCTION(exec, BlueprintCallable, Category = "GameCheatManager")
 		void TestCreateBin();
+	UFUNCTION(exec, BlueprintCallable, Category = "GameCheatManager")
+		void TestCodePoint();
 	
 };

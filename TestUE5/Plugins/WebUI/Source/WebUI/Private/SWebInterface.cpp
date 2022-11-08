@@ -347,7 +347,7 @@ void SWebInterface::ApplyZoom() const
 {
 	if (BrowserWindow.IsValid())
 	{
-		BrowserWindow->ApplyZoom();
+		//BrowserWindow->ApplyZoom();
 	}
 }
 

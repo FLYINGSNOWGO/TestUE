@@ -25,8 +25,13 @@ public class TestUE5 : ModuleRules
 			"JsEnv",
 		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
-		
+		PrivateDependencyModuleNames.AddRange(new string[] {
+			"NCCommonLib",
+		});
+		if (Target.Platform == UnrealTargetPlatform.Android)
+		{
+			PrivateDependencyModuleNames.Add("AndroidPermission");
+		}
 		PublicDefinitions.Add("V8_HAS_ATTRIBUTE_WARN_UNUSED_RESULT=0");
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
