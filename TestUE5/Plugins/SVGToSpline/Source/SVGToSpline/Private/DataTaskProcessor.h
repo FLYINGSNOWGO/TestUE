@@ -15,7 +15,6 @@ class USVGToSpline;
 
 namespace DataTaskProcessorHelper
 {
-	class FPath;
 	class FPathsTask;
 };
 
@@ -30,11 +29,15 @@ private:
 	/** The runnable thread */
 	FRunnableThread* Thread;
 	TAtomic<bool> RunThread;
+	TSharedPtr<DataTaskProcessorHelper::FPathsTask> CurTask;
+	FDelegateHandle CompleteCurTaskHandle;
 	FTSTicker::FDelegateHandle TickerHandle;
 private:
+	void CompleteCurTask(const EMotionStatus InMotionStatus, const FVector2D& Inpoint);
 	bool Tick_GameThread(float DeltaTime);
+
 public:
-	FDataTaskProcessor(const FNotifyCompleteCmd& InNotifyProcessPathsComplete，const FNotifyUpdateMotionPoint& InNotifyUpdateMotionPoint);
+	FDataTaskProcessor(const FNotifyCompleteCmd& InNotifyProcessPathsComplete,const FNotifyUpdateMotionPoint& InNotifyUpdateMotionPoint);
 	~FDataTaskProcessor();
 	// Begin FRunnable [11/7/2022 CarlZhou]
 	virtual uint32 Run() override;

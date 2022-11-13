@@ -25,6 +25,11 @@ public:
 // 任务完成通知 [11/7/2022 CarlZhou]
 	FNotifyCompleteCmd TaskComplete;
 public:
+	//USVGSubsystem(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	USVGSubsystem();
+	// This is declared so we can use TUniquePtr<FSkeletalMeshRenderData> with just a forward declare of that class
+	USVGSubsystem(FVTableHelper& Helper);
+	~USVGSubsystem();
 	// Begin USubsystem [11/7/2022 CarlZhou]
 	/** Implement this for initialization of instances of the system */
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
@@ -33,4 +38,5 @@ public:
 	virtual void Deinitialize() override;
 	// End USubsystem [11/7/2022 CarlZhou]
 	bool AddTask(TObjectPtr<USVGToSpline> Task);
+	void Start();
 };

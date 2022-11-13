@@ -8,6 +8,7 @@
 
 void UNCGameInstance::Init()
 {
+	Super::Init();
 	UE_LOG(LogNC, Log, TEXT("Enter UNCGameInstance::Init[%s], this:%p"), *GetClientServerContextString(this),this);
 	UE_LOG(LogNC, Log, TEXT("UNCGameInstance::UNCGameInstance->IsDedicatedServerInstance:%s"),IsDedicatedServerInstance() ? TEXT("True") : TEXT("False"));
 
@@ -29,6 +30,7 @@ void UNCGameInstance::Init()
 
 void UNCGameInstance::OnStart()
 {
+	Super::OnStart();
 	UE_LOG(LogNC, Log, TEXT("Enter UNCGameInstance::OnStart[%s], this:%p"), *GetClientServerContextString(this),this);
 	UE_LOG(LogNC, Log, TEXT("UNCGameInstance::OnStart->IsDedicatedServerInstance:%s"), IsDedicatedServerInstance() ? TEXT("True") : TEXT("False"));
 	GameInstanceDelegator->OnStart();
@@ -41,10 +43,12 @@ void UNCGameInstance::Shutdown()
 	UE_LOG(LogNC, Log, TEXT("UNCGameInstance::Shutdown->IsDedicatedServerInstance:%s"), IsDedicatedServerInstance() ? TEXT("True") : TEXT("False"));
 	GameInstanceDelegator->Shutdown();
 	UE_LOG(LogNC, Log, TEXT("Exit UNCGameInstance::Shutdown[%s], this:%p"), *GetClientServerContextString(this),this);
+	Super::Shutdown();
 }
 
 void UNCGameInstance::LoadComplete(const float LoadTime, const FString& MapName)
 {
+	Super::LoadComplete(LoadTime, MapName);
 	UE_LOG(LogNC, Log, TEXT("Enter UNCGameInstance::LoadComplete[%s],this:%p"), *GetClientServerContextString(this), this);
 	UE_LOG(LogNC, Log, TEXT("UNCGameInstance::LoadComplete->IsDedicatedServerInstance:%s"), IsDedicatedServerInstance() ? TEXT("True") : TEXT("False"));
 	GameInstanceDelegator->LoadComplete(LoadTime, MapName);

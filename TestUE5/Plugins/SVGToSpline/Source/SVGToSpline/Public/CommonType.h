@@ -14,6 +14,22 @@ enum class EMotionType : uint8
 	Close
 };
 
+const TCHAR* MotionTypeToString(const EMotionType MotionType)
+{
+	switch (MotionType)
+	{
+		case EMotionType::MoveTo:
+			return TEXT("MoveTo");
+		case EMotionType::LineTo:
+			return	TEXT("LineTo");
+		case EMotionType::CubicTo:
+			return	TEXT("CubicTo");
+		case EMotionType::Close:
+			return TEXT("Close");
+	}
+	return TEXT("ErrorType");
+}
+
 UENUM(BlueprintType)
 enum class EMotionStatus : uint8
 {
@@ -22,6 +38,21 @@ enum class EMotionStatus : uint8
 	PathError,
 	PathsError
 };
+const TCHAR* MotionStatusToString(const EMotionStatus MotionStatus)
+{
+	switch (MotionStatus)
+	{
+	case EMotionStatus::OK:
+		return TEXT("OK");
+	case EMotionStatus::PathSegmentError:
+		return	TEXT("PathSegmentError");
+	case EMotionStatus::PathError:
+		return	TEXT("PathError");
+	case EMotionStatus::PathsError:
+		return TEXT("PathsError");
+	}
+	return TEXT("ErrorType");
+}
 
 USTRUCT(BlueprintType)
 struct FMotionData
@@ -56,5 +87,5 @@ struct FMotionPath
 //		TObjectPtr<USVGToSpline> SVGToSpline;
 //}
 
-DECLARE_DELEGATE_TwoParams(FNotifyUpdateMotionPoint, const EMotionType, const FVector2D&);
-DECLARE_DELEGATE_TwoParams(FNotifyCompleteCmd, const EMotionStatus, const FVector2D&);
+DECLARE_DELEGATE_ThreeParams(FNotifyUpdateMotionPoint, const EMotionType, const FVector2D&, const FVector2D&);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FNotifyCompleteCmd, const EMotionStatus, const FVector2D&);

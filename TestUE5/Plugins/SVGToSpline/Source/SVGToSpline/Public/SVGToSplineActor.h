@@ -34,8 +34,10 @@ private:
 public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 		TArray<FMotionPath> MotionPaths;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		FVector2D CurPoint;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		float ZoomFactor = 1.f;
 public:	// UObject Interface.
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;

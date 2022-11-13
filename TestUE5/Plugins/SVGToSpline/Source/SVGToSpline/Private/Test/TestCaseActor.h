@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CommonType.h"
 #include "TestCaseActor.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTestCaseActor, Log, All);
@@ -19,11 +20,14 @@ public:
 
 public:
 	UPROPERTY()
-	TObjectPtr<class USVGToSpline> SVGToSpline;
+	TArray<TObjectPtr<class USVGToSpline>> SVGToSplines;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void OnTaskComplete(const EMotionStatus InMotionStatus, const FVector2D& Inpoint);
+	void DoUpdateMotionPoint(const EMotionType InMotionType, const FVector2D& LastPoint, const FVector2D& InPoint);
 
 public:	
 	// Called every frame

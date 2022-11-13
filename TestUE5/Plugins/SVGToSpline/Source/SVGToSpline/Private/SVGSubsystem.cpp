@@ -4,15 +4,36 @@
 #include "SVGSubsystem.h"
 #include "DataTaskProcessor.h"
 
+//USVGSubsystem::USVGSubsystem(const FObjectInitializer& ObjectInitializer /*= FObjectInitializer::Get()*/)
+//	:Super(ObjectInitializer)
+//{
+//
+//}
+
+USVGSubsystem::USVGSubsystem(FVTableHelper& Helper)
+	:Super(Helper)
+{
+
+}
+
+USVGSubsystem::USVGSubsystem()
+	: Super()
+{
+	
+}
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+USVGSubsystem::~USVGSubsystem() = default;
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
 void USVGSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
-	DataTaskProcessor = MakeUnique<FDataTaskProcessor>();
-	DataTaskProcessor->Start();
+	Super::Initialize(Collection);
 }
 
 void USVGSubsystem::Deinitialize()
 {
-
+	Super::Deinitialize();
 }
 
 bool USVGSubsystem::AddTask(TObjectPtr<USVGToSpline> Task)
@@ -23,4 +44,10 @@ bool USVGSubsystem::AddTask(TObjectPtr<USVGToSpline> Task)
 		bAddSuccess = DataTaskProcessor->AddTask(Task);
 	}
 	return bAddSuccess;
+}
+
+void USVGSubsystem::Start()
+{
+	DataTaskProcessor = MakeUnique<FDataTaskProcessor>(TaskComplete, UpdateMotionPoint);
+	DataTaskProcessor->Start();
 }
